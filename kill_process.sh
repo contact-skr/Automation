@@ -22,7 +22,17 @@ kill_processes() {
         kill -"$signal" "$pid"
     done
 
-    echo "Finished killing processes."
+    # Wait a moment to allow processes to terminate
+    sleep 1
+
+    # Check if any processes are still running
+    remaining_pids=$(pgrep -f "$pattern")
+    if [ -n "$remaining_pids" ]; then
+        echo "Some processes are still running. PIDs: $remaining_pids"
+        echo "You may want to use a stronger signal or check these processes manually."
+    else
+        echo "All matching processes have been terminated."
+    fi
 }
 
 # Main script
