@@ -1,0 +1,20 @@
+Here's how to use this script:
+
+Save the script to a file, for example, kill_processes.sh.
+Make the script executable: chmod +x kill_processes.sh
+Run the script with a pattern to match the processes you want to kill: ./kill_processes.sh "python script.py"
+This script does the following:
+
+It defines a function kill_processes that takes a pattern to match and an optional signal (defaulting to SIGTERM).
+It uses pgrep -f to find processes matching the given pattern.
+If processes are found, it displays the PIDs and kills each process using the specified signal.
+The main part of the script checks for command-line arguments and calls the kill_processes function.
+You can also specify a different signal, like SIGKILL:
+./kill_processes.sh "python script.py" KILL
+
+This script is safer than using ps -ef | grep and then killing processes manually because:
+
+It uses pgrep, which is designed for finding processes and avoids issues with grep matching itself.
+It allows you to review the PIDs before killing them.
+It's more efficient and less error-prone than manual killing.
+Remember to use this script cautiously, as killing processes can have unintended consequences if you're not careful with the pattern matching.
